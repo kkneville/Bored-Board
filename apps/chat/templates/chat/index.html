@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chat Home</title>
+</head>
+<body>
+    BoredBoard |
+    <a href="/dashboard">Home</a> |
+    <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
+    <a href="{% url "showmembers" %}">Members</a> |
+    <a href="{% url "library" %}">Library</a> |
+    <a href="{% url "quotelist" %}">Quotes</a> |
+    <a href="{% url "chatindex" %}">Chat</a> |
+    <a href="/logout">Logout</a>
+
+
+    <h2>Welcome to BoredBoard Chat</h2>
+
+
+    <h1> COMING SOON </h1>
+
+
+<!-- 
+    <p>Chat with your friends:</p>
+    	
+    	<ul>
+    	{% for friend in friends %}
+    		<li>{{ friend.firstname}} {{ friend.lastname }}</li>
+    	{% endfor %}
+    	</ul>
+
+    <p>Chat with someone new!</p>
+
+    	<ul>
+    	{% for person in people %}
+    		<li>{{ person.firstname}} {{ person.lastname }}</li>
+    	{% endfor %}
+    	</ul>
+ -->
+    
+
+</body>
+</html>

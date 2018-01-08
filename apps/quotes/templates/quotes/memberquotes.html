@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Member Profile</title>
+  </head>
+  <body>
+    BoredBoard |
+    <a href="/dashboard">Home</a> |
+    <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
+    <a href="{% url "showmembers" %}">Members</a> |
+    <a href="{% url "library" %}">Library</a> |
+    <a href="{% url "quotelist" %}">Quotes</a> |
+    <a href="{% url "chatindex" %}">Chat</a> |
+    <a href="/logout">Logout</a>
+
+    <br>
+    <br>
+    <h2>{{ member.firstname }}'s Contributions</h2>
+    <p>Posts: {{count}}</p>
+
+    {% for post in posts %}
+    <p>{{ post.speaker }}: {{ post.message }}</p>
+    <p>Posted: {{ post.created_at }}</p>
+    {% endfor %}
+
+  </body>
+</html>

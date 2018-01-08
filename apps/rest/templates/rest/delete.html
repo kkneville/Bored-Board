@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Delete Author</title>
+  </head>
+  <body>
+    BoredBoard |
+    <a href="/dashboard">Home</a> |
+    <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
+    <a href="{% url "showmembers" %}">Members</a> |
+    <a href="{% url "library" %}">Library</a> |
+    <a href="{% url "quotelist" %}">Quotes</a> |
+    <a href="{% url "chatindex" %}">Chat</a> |
+    <a href="/logout">Logout</a>
+
+    <br>
+    <h2>Delete {{ author.firstname }} {{ author.lastname }}'s Profile?</h2>
+
+    <p>Full Name: {{ author.firstname }} {{ author.lastname }}</p>
+    <p>Email: {{ author.email }}</p>
+    <p>Created At: {{ author.created_at }}</p>
+
+    <h3><form action="{% url "delete_author" id=author.id %}" method="POST">{% csrf_token %}<button type="submit">Delete</button></form></h3>
+
+    <a href="{% url "edit" id=author.id %}">Edit</a>  | <a href="/">All Authors</a> | <a href="/new">Add Another Author</a>
+
+  </body>
+</html>

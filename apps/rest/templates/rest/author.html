@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>View Author</title>
+  </head>
+  <body>
+    BoredBoard |
+    <a href="/dashboard">Home</a> |
+    <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
+    <a href="{% url "showmembers" %}">Members</a> |
+    <a href="{% url "library" %}">Library</a> |
+    <a href="{% url "quotelist" %}">Quotes</a> |
+    <a href="{% url "chatindex" %}">Chat</a> |
+    <a href="/logout">Logout</a>
+
+    <br>
+    <h2>{{ author.firstname }} {{ author.lastname }}'s Profile</h2>
+
+    <p>Full Name: {{ author.firstname }} {{ author.middlename }} {{ author.lastname }}</p>
+    <p>Period: {{ author.span }}</p>
+    <p>Sex: {{ author.sex }}</p>
+    <p>Bio: {{ author.bio }}</p>
+    <p>Tags: {{ author.tags }}</p>
+    <p><a href="{{ author.link }}">More about {{ author.lastname }}</a></p>
+    <p>Created At: {{ author.created_at }}</p>
+
+    <h3><a href="{% url "show_author_work" id=author.id %}">View Works</a></h3>
+
+    <form class="" action="likeauthor" method="post">
+    {% csrf_token %}
+      <input type="hidden" name="authorid" value="{{ author.id }}">
+      <button type="submit">Like</button>
+    </form>
+    <br>
+
+    <a href="{% url "edit" id=author.id %}">Edit</a> | <a href="{% url "delete" id=author.id %}">Delete</a> | <a href="/allauthors">All Authors</a> | <a href="/new">Add Another Author</a>
+
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>View Work</title>
+  </head>
+  <body>
+    BoredBoard |
+    <a href="/dashboard">Home</a> |
+    <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
+    <a href="{% url "showmembers" %}">Members</a> |
+    <a href="{% url "library" %}">Library</a> |
+    <a href="{% url "quotelist" %}">Quotes</a> |
+    <a href="{% url "chatindex" %}">Chat</a> |
+    <a href="/logout">Logout</a>
+
+    <h2>{{ work.title }}</h2>
+
+    <p>Author: {{ work.author.firstname }} {{ work.author.middlename}} {{ work.author.lastname }}</p>
+    <p>Year Published: {{ work.year }}</p>
+    <p>Type: {{ work.worktype }}</p>
+    <p>Description: {{ work.desc }}</p>
+    <p>Tags: {{ work.tags }}</p>
+    <p><a href="{{ work.link }}">Link to Work</a></p>
+
+   <!-- TODO!!! Use .split() on newline to format verse excerpts. -->
+
+    <p> Excerpt: {{ work.excerpt }}</p>
+
+    <form class="" action="/works/likework" method="post">
+    {% csrf_token %}
+      <input type="hidden" name="workid" value="{{ work.id }}">
+      <button type="submit">Like</button>
+    </form>
+
+    <h3>View <a href="{% url "show_author_work" id=work.author.id %}">Other works</a> by this Author.</h3>
+
+    <div class="comments">
+      <form class="" action="/works/addcomment" method="post">
+      {% csrf_token %}
+      <textarea name="content" rows="3" cols="50"></textarea>
+      <input type="hidden" name="memberid" value="{{ member.id }}">
+      <input type="hidden" name="workid" value="{{ work.id }}">
+      <button type="submit">Add Comment</button>
+      </form>
+      {% for comment in comments %}
+      <div class="comment">
+        <p>{{ comment.content }} --{{ comment.member.firstname }}</p>
+        <p>
+          <form class="" action="/works/addreply" method="post">
+          {% csrf_token %}
+            <textarea name="content" rows="1" cols="50"></textarea>
+            <input type="hidden" name="memberid" value="{{ member.id }}">
+            <input type="hidden" name="commentid" value="{{ work.comments.id }}">
+            <button type="submit">Add Reply</button>
+          </form>
+        </p>
+        {% for reply in replies %}
+        <p>_____{{ comment.reply.content }}</p>
+        <p>_____{{ comment.reply.member.firstname }}</p>
+        {% endfor %}
+      {% endfor %}
+      </div>
+
+    </div>
+
+    <a href="{% url "worksedit" workid=work.id %}">Edit</a>
+    <br>
+    <a href="{% url "new_work" %}">Add A New Work</a>
+    <br>
+    <a href="{% url "show" id=work.author.id %}">Return to Author</a>
+    <br>
+    <a href="{% url "all_works" %}">Return to All Works</a>
+
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>All Authors</title>
+  </head>
+  <body>
+    <h1>All Authors</h1>
+    BoredBoard |
+    <a href="/dashboard">Home</a> |
+    <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
+    <a href="{% url "showmembers" %}">Members</a> |
+    <a href="{% url "library" %}">Library</a> |
+    <a href="{% url "quotelist" %}">Quotes</a> |
+    <a href="{% url "chatindex" %}">Chat</a> |
+    <a href="/logout">Logout</a>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Period</th>
+          <th>Sex</th>
+          <th>Works</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for author in authors %}
+        <tr>
+          <td> {{ author.id }}</td>
+          <td><a href="{% url "show" id=author.id %}">{{ author.firstname }} {{ author.middlename }} {{ author.lastname }}</a></td>
+          <td>{{ author.span }}</td>
+          <td>{{ author.sex }}</td>
+          <td><a href="{% url "show_author_work" id=author.id %}">Works</a></td>
+          <td>
+            <a href="{% url "edit" id=author.id %}">Edit</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <a href="{% url "new_author" %}">Add Another Author</a>
+  </body>
+</html>

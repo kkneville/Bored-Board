@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Member Dashboard</title>
+  </head>
+  <body>
+    BoredBoard |
+    <a href="/dashboard">Home</a> |
+    <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
+    <a href="{% url "showmembers" %}">Members</a> |
+    <a href="{% url "library" %}">Library</a> |
+    <a href="{% url "quotelist" %}">Quotes</a> |
+    <a href="{% url "chatindex" %}">Chat</a> |
+    <a href="/logout">Logout</a>
+
+    <br>
+    <br>
+    <h1>Welcome, {{ member.firstname }}! </h1>
+
+    <div class="favourites">
+      <h2>Your Favourite Quotes</h2>
+      {% for fav in favs %}
+        <p>{{ fav.speaker }}: {{ fav.message }}</p>
+        <p>Posted by <a href="{% url "memberquotes" id=fav.posted_by.id %}">{{ fav.posted_by.firstname }}</a></p>
+        <form action="{% url "removefav" %}" method="post">
+          {% csrf_token %}
+        <input type="hidden" name="memberid" value="{{ member.id }}">
+        <input type="hidden" name="id" value="{{ fav.id }}">
+        <button type="submit">Remove from My List</button>
+      </form>
+      {% endfor %}
+    </div>
+
+    <div class="quotables">
+      <h2>Quotable Quotes</h2>
+      {% for quote in quotes %}
+        <p>{{ quote.speaker }}: {{ quote.message }}</p>
+        <p>Posted by <a href="{% url "memberquotes" id=quote.posted_by.id %}">{{ quote.posted_by.firstname }}</a></p>
+        <form action="{% url "addfav" %}" method="post">
+          {% csrf_token %}
+        <input type="hidden" name="memberid" value="{{ member.id }}" >
+        <input type="hidden" name="id" value="{{ quote.id }}">
+        <button type="submit">Add to My List</button>
+      </form>
+      {% endfor %}
+    </div>
+
+
+
+    <div class="addquote">
+      <h2>Contribute a Quote</h2>
+      <form action="{% url "addquote" %}" method="post">
+        {% csrf_token %}
+        <label for="speaker">Speaker:</label>
+        <input type="text" name="speaker" value="">
+        <br>
+        <br>
+        <label for="message">Message:</label>
+        <textarea name="message" rows="5" cols="50"></textarea>
+        <input type="hidden" name="member" value="{{ member.id }}">
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    {% for error in errors %}
+    <p>{{ error }}</p>
+    {% endfor %}
+
+
+  </body>
+</html>

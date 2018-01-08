@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Member Library</title>
+  </head>
+  <body>
+    <h2>Your Library</h2>
+    BoredBoard |
+    <a href="/dashboard">Home</a> |
+    <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
+    <a href="{% url "showmembers" %}">Members</a> |
+    <a href="{% url "library" %}">Library</a> |
+    <a href="{% url "quotelist" %}">Quotes</a> |
+    <a href="{% url "chatindex" %}">Chat</a> |
+    <a href="/logout">Logout</a>
+    
+    <header>
+      <div class="welcome">
+        <h1>Welcome {{ member.firstname }}.</h1>
+        <p>insert datetime</p>
+      </div>
+      <div class="navbar">
+        <a href="{% url "dashboard" %}">Home</a> |
+        <a href="{% url "library" %}">Library</a> |
+        <a href="{% url "allauthors" %}">Authors</a> |
+        <a href="{% url "all_works" %}">Works</a> |
+        <a href="#">Placeholder</a> |
+        <a href="#">Placehold</a> |
+        <form class="" action="/search" method="post">
+          {% csrf_token %}
+          <input type="text" name="search" value="">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </header>
+
+    <div class="leftside">
+        <h3>Authors You Like</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Period</th>
+              <th>Works</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for author in memberauthors %}
+            <tr>
+              <td> {{ author.id }}</td>
+              <td><a href="{% url "show" id=author.id %}">{{ author.firstname }} {{ author.lastname }}</a></td>
+              <td>{{ author.span }}</td>
+              <td><a href="{% url "show_author_work" id=author.id %}">Works</a></td>
+              <td>
+                <a href="#">Unlike</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="#">Option menu to like an existing author</a>
+        <h3>Works You Like</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Year Published</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for work in memberworks %}
+            <tr>
+              <td> {{ work.id }}</td>
+              <td><a href="{% url "show_work" workid=work.id %}">{{ work.title }}</a></td>
+              <td>{{ work.author.firstname }} {{ work.author.lastname }}</td>
+              <td>{{ work.year }}</td>
+              <td>
+                <a href="#">Unlike</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="#">Option menu to like an existing work</a>
+    </div>
+
+    <div class="recent_comments">
+      <h3>Your Comments:</h3>
+      {% for comment in membercomments %}
+        <p>{{ comment.content }}</p>
+        <p>{{ comment.member.firstname }}</p>
+      {% endfor %}
+
+      <!-- <h3>Replies to Your Comments:</h3>
+      {% for reply in replies %}
+        <p>{{ reply.content }}</p>
+        <p>{{ reply.member.firstname }}</p>
+      {% endfor %} -->
+
+      <!-- <h3>Recent Comments on Works You Like:</h3>
+      {% for comment in comments %}
+        <p>{{ comment.content }}</p>
+        <p>{{ comment.member.firstname }}</p>
+      {% endfor %} -->
+    </div>
+
+    <footer></footer>
+
+  </body>
+</html>
