@@ -7,6 +7,7 @@ import random, re
 from django.db import models
 from ..logreg.models import Member
 from ..quotes.models import Quote
+from ..rest.models import Work, Author
 
 
 def current_member(request):
@@ -32,12 +33,16 @@ def showmember(request, id):
     person = Member.objects.get(id=id)
     quotes = Quote.objects.filter(liked_by__id=id)[:3]
     posts = Quote.objects.filter(posted_by__id=id)[:2]
+    works = Work.objects.filter(liked_by__id=id)
+    authors = Author.objects.filter(liked_by__id=id)
     print member.level
     context = {
         "member": member,
         "person": person,
         "quotes": quotes,
         "posts": posts,
+        "works": works,
+        "authors": authors,
     }
     return render(request, "manager/showmember.html", context)
 

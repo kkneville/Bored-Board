@@ -42,6 +42,14 @@ class AuthorManager(models.Manager):
         author.save()
         return author
 
+
+    def likeauthor(self, formdata, current_member):
+        author = Author.objects.get(id=formdata['authorid'])
+        member = Member.objects.get(id=current_member.id)
+        author.liked_by.add(member)
+        author.save()
+        return author   
+
 class Author(models.Model):
     firstname = models.CharField(max_length=255)
     middlename = models.CharField(max_length=255, default="")
@@ -85,6 +93,13 @@ class WorkManager(models.Manager):
         work.save()
         return work
 
+
+    def likework(self, formdata, current_member):
+        work = Work.objects.get(id=formdata['workid'])
+        member = Member.objects.get(id=current_member.id)
+        work.liked_by.add(member)
+        work.save()
+        return work
 
 class Work(models.Model):
     title = models.CharField(max_length=100)

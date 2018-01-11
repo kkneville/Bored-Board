@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/edit_author$', views.edit_author, name="edit_author"),
     url(r'^(?P<id>\d+)/delete$', views.delete, name="delete"),
     url(r'^(?P<id>\d+)/delete_author$', views.delete_author, name="delete_author"),
+    url(r'^likeauthor$', views.likeauthor, name="likeauthor"),    
 
 
     url(r'^works$', views.all_works, name="all_works"),

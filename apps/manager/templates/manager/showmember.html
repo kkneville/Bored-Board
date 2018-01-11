@@ -22,14 +22,33 @@
     <p>Birthday: {{ person.dob }}</p>
     <p>Email: {{ person.email }}</p>
     <p>Joined On: {{ person.created_at }}</p>
-    <p>Recent Comments: placeholder </p>
-    <p>Favourite Books: placeholder </p>
+
+
+    <p>Favourite Authors: </p>
+       <ul>
+       {% for author in authors %}
+         <li> {{ author.firstname }} {{ author.lastname }} </li>
+       {% endfor %}  
+       </ul>  
+
+
+
+    <p>Favourite Books: </p>
+       <ul>
+       {% for work in works %}
+         <li> {{ work.title }} - {{ work.author.firstname }} {{ work.author.lastname }} </li>
+       {% endfor %}  
+       </ul>  
+
+<!--     <p>Recent Comments: placeholder </p>
     <p>Recent Posts: </p>
         {% for post in posts %}
         <h3> {{ post.speaker }} </h3>
         <p> {{ post.message }} </p>
         {% endfor %}
-        <a href="{% url "memberquotes" id=person.id %}">Read more of {{ person.firstname }}'s posts...</a>
+        <a href="{% url "memberquotes" id=person.id %}">Read more of {{ person.firstname }}'s posts...</a> -->
+
+
     <p>Favourite Quotes:</p>
         {% for quote in quotes %}
         <h3> {{ quote.speaker }} </h3>
@@ -37,7 +56,7 @@
         <p> {{ quote.postedby.firstname }} </p>
         {% endfor %}
 
-    <p>Favourite Something Else: placeholder </p>
+<!--     <p>Favourite Something Else: placeholder </p> -->
 
     {% if member.level == "admin" or member.id == person.id %}
     <p><a href="{% url "editmember" id=person.id %}">Edit Member</a></p>

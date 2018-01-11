@@ -5,7 +5,6 @@
     <title>Member Library</title>
   </head>
   <body>
-    <h2>Your Library</h2>
     BoredBoard |
     <a href="/dashboard">Home</a> |
     <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
@@ -17,21 +16,16 @@
     
     <header>
       <div class="welcome">
-        <h1>Welcome {{ member.firstname }}.</h1>
-        <p>insert datetime</p>
+        <h2>Your Library</h2>
       </div>
       <div class="navbar">
-        <a href="{% url "dashboard" %}">Home</a> |
-        <a href="{% url "library" %}">Library</a> |
-        <a href="{% url "allauthors" %}">Authors</a> |
-        <a href="{% url "all_works" %}">Works</a> |
-        <a href="#">Placeholder</a> |
-        <a href="#">Placehold</a> |
-        <form class="" action="/search" method="post">
+        <a href="{% url "allauthors" %}">All Authors</a> |
+        <a href="{% url "all_works" %}">All Works</a> 
+<!--         <form class="" action="/search" method="post">
           {% csrf_token %}
           <input type="text" name="search" value="">
           <button type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </header>
 
@@ -61,7 +55,7 @@
             {% endfor %}
           </tbody>
         </table>
-        <a href="#">Option menu to like an existing author</a>
+       <!--  <a href="#">Option menu to like an existing author</a> -->
         <h3>Works You Like</h3>
         <table>
           <thead>
@@ -87,15 +81,15 @@
             {% endfor %}
           </tbody>
         </table>
-        <a href="#">Option menu to like an existing work</a>
+      <!--   <a href="#">Option menu to like an existing work</a> -->
     </div>
 
-    <div class="recent_comments">
+  <!--   <div class="recent_comments">
       <h3>Your Comments:</h3>
       {% for comment in membercomments %}
         <p>{{ comment.content }}</p>
         <p>{{ comment.member.firstname }}</p>
-      {% endfor %}
+      {% endfor %} -->
 
       <!-- <h3>Replies to Your Comments:</h3>
       {% for reply in replies %}
@@ -108,7 +102,7 @@
         <p>{{ comment.content }}</p>
         <p>{{ comment.member.firstname }}</p>
       {% endfor %} -->
-    </div>
+    <!-- </div> -->
 
     <footer></footer>
 

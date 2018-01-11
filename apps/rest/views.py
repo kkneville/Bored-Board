@@ -72,6 +72,7 @@ def edit(request, id):
     author = Author.objects.get(id=id)
     context = {
         "author": author,
+        "member": current_member(request)
     }
     return render(request, "rest/edit.html", context)
 
@@ -161,6 +162,7 @@ def worksedit(request, workid):
     context = {
         "work": work,
         "author": author,
+        "member": current_member(request)
     }
     return render(request, "works/edit_work.html", context)
 
@@ -179,14 +181,27 @@ def delete_work(request):
     pass
 
 def likeauthor(request):
-    Author.objects.liked_by = current_member.id
-    author = Author.objects.filter(id=request.POST['authorid'])
-    return redirect(reverse('show', kwargs = {'authorid':author.id}))
+    id=request.POST['authorid']
+    member = current_member(request)
+    author = Author.objects.likeauthor(request.POST, member)
+    return redirect(reverse('show', kwargs = {'id':author.id}))
 
 def likework(request):
-    Work.objects.liked_by = current_member(request)
-    work = Work.objects.filter(id=request.POST['workid'])
-    return redirect (reverse('show_work', kwargs = {'workid':work.id}))
+    member = current_member(request)
+    work = Work.objects.likework(request.POST, member)
+    return redirect(reverse("show_work", kwargs = {"workid": work.id}))
+
+    # Work.objects.liked_by = current_member(request)
+    # work = Work.objects.filter(id=request.POST['workid'])
+    # return redirect (reverse('show_work', kwargs = {'workid':work.id}))
+
+
+def addfav(request):
+    member = current_member(request)
+    quote = Quote.objects.addfav(request.POST, member)
+    print quote.liked_by
+    return redirect(reverse("quotelist"))
+
 
 def addcomment(request):
     comment = Comment.objects.create_comment(request.POST)

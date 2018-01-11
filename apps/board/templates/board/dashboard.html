@@ -3,19 +3,68 @@
   <head>
     <meta charset="utf-8">
     <title>Dashboard</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/board/css/main.css">
+
   </head>
   <body>
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">BoredBoard</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/dashboard">Home</a></li>
+        <li><a href="{% url 'showmember' id=member.id %}">{{ member.firstname }}</a></li>
+        <li><a href="{% url 'showmembers' %}">Members</a></li>
+        <li><a href="{% url 'library' %}">Library</a></li>
+        <li><a href="{% url 'quotelist' %}">Quotes</a></li>
+        <li><a href="{% url 'chatindex' %}">Chat</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
     BoredBoard |
     <a href="/dashboard">Home</a> |
-    <a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a> |
-    <a href="{% url "showmembers" %}">Members</a> |
-    <a href="{% url "library" %}">Library</a> |
-    <a href="{% url "quotelist" %}">Quotes</a> |
-    <a href="{% url "chatindex" %}">Chat</a> |
+    <a href="{% url 'showmember' id=member.id %}">{{ member.firstname }}</a> |
+    <a href="{% url 'showmembers' %}">Members</a> |
+    <a href="{% url 'library' %}">Library</a> |
+    <a href="{% url 'quotelist' %}">Quotes</a> |
+    <a href="{% url 'chatindex' %}">Chat</a> |
     <a href="/logout">Logout</a>
 
 
 
     <h1>Welcome, {{ member.firstname }}!</h1>
+
+
+    <h3>Options</h3>
+
+    <p> <b><a href="{% url "showmembers" %}">Members</a></b> | Check in on other member profiles. </p>
+    <p> <b><a href="{% url "library" %}">Library</a></b> | Visit the Library and explore authors other members have liked. </p>
+    <p> <b><a href="{% url "quotelist" %}">Quotes</a></b> | Visit the Quotes page and like some quotes. </p>
+    <p> <b><a href="{% url "showmember" id=member.id %}">{{ member.firstname }}</a></b> | Visit and edit your profile. </p>
+
+
+
+
+
+
+
   </body>
 </html>

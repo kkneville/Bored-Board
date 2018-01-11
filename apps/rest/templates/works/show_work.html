@@ -16,7 +16,7 @@
 
     <h2>{{ work.title }}</h2>
 
-    <p>Author: {{ work.author.firstname }} {{ work.author.middlename}} {{ work.author.lastname }}</p>
+    <p>Author: <a href="{% url 'show' id=work.author.id %}"> {{ work.author.firstname }} {{ work.author.middlename}} {{ work.author.lastname }}</a></p>
     <p>Year Published: {{ work.year }}</p>
     <p>Type: {{ work.worktype }}</p>
     <p>Description: {{ work.desc }}</p>
@@ -27,15 +27,15 @@
 
     <p> Excerpt: {{ work.excerpt }}</p>
 
-    <form class="" action="/works/likework" method="post">
+    <form class="" action="{% url 'likework' %}" method="post">
     {% csrf_token %}
       <input type="hidden" name="workid" value="{{ work.id }}">
       <button type="submit">Like</button>
     </form>
 
-    <h3>View <a href="{% url "show_author_work" id=work.author.id %}">Other works</a> by this Author.</h3>
+    <h3>View <a href="{% url 'show_author_work' id=work.author.id %}">Other works</a> by this Author.</h3>
 
-    <div class="comments">
+<!--     <div class="comments">
       <form class="" action="/works/addcomment" method="post">
       {% csrf_token %}
       <textarea name="content" rows="3" cols="50"></textarea>
@@ -60,7 +60,7 @@
         <p>_____{{ comment.reply.member.firstname }}</p>
         {% endfor %}
       {% endfor %}
-      </div>
+      </div> -->
 
     </div>
 

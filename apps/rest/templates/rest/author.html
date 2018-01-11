@@ -27,7 +27,7 @@
 
     <h3><a href="{% url "show_author_work" id=author.id %}">View Works</a></h3>
 
-    <form class="" action="likeauthor" method="post">
+    <form class="" action="{% url 'likeauthor' %}" method="post">
     {% csrf_token %}
       <input type="hidden" name="authorid" value="{{ author.id }}">
       <button type="submit">Like</button>
